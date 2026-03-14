@@ -105,6 +105,19 @@
 	color: var(--primary);
 }
 
+.header__icon-btn-active {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	transition: all 0.2s;
+	background: var(--gray-100);
+	color: var(--primary);
+}
+
 .header__icon-btn svg {
 	width: 24px;
 	height: 24px;

@@ -27,3 +27,6 @@ ehthumbs.db
 # Temporary files
 ~$*
 *.tmp
+
+docker*.*
+docker
