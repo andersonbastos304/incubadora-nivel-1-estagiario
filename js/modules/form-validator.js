@@ -3,6 +3,9 @@
 // ========================================
 
 class FormValidator {
+
+	#needsConfirmForRevalidation = {};
+
 	constructor(form) {
 		this.form = typeof form === "string" ? document.querySelector(form) : form;
 		if (!this.form) return;
@@ -19,12 +22,26 @@ class FormValidator {
 		this.form.querySelectorAll("input, textarea, select").forEach((input) => {
 			input.addEventListener("blur", () => this.validateField(input));
 			input.addEventListener("input", () => this.clearFieldError(input));
+			if (input.hasAttribute("data-confirm-for")) {
+				const target = document.getElementById(input.dataset.confirmFor);
+				this.#needsConfirmForRevalidation[target.id] = input.id;
+			}
 		});
 	}
 
 	validateField(field) {
 		const value = field.value.trim();
 		let error = null;
+
+		if (this.#needsConfirmForRevalidation[field.id]) {
+			const source = document.getElementById(this.#needsConfirmForRevalidation[field.id]);
+			if(source?.value !== value) {
+				error = "Campos com valores diferentes";
+				this.showFieldError(source, error);	
+			} else {
+				this.clearFieldError(source);
+			}
+		}
 
 		if (field.hasAttribute("required") && !value) {
 			error = "Este campo é obrigatório";
@@ -40,6 +57,19 @@ class FormValidator {
 			value.length < parseInt(field.getAttribute("minlength"))
 		) {
 			error = `Mínimo de ${field.getAttribute("minlength")} caracteres`;
+		} else if (
+			field?.name === "agreement" &&
+			field?.checked !== true
+		) {
+			error = "É obrigatório aceitar os termos de uso do site";
+		} else if (field.hasAttribute("data-confirm-for")) {
+			const target = document.getElementById(field.dataset.confirmFor);
+			if(target?.value !== value) {
+				error = "Campos com valores diferentes";
+				this.showFieldError(target, error);	
+			} else {
+				this.clearFieldError(target);
+			}
 		}
 
 		if (error) {

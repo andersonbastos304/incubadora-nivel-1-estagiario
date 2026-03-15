@@ -70,7 +70,12 @@ function initLoginHandler() {
 
 	loginBtn.addEventListener("click", (e) => {
 		e.preventDefault();
-		const loginForm = `
+		loginHandler()
+	});
+}
+
+function loginHandler() {
+	const loginForm = `
       <form class="form" id="loginForm">
         <div class="form__group">
           <label class="form__label form__label--required" for="email">E-mail</label>
@@ -89,34 +94,108 @@ function initLoginHandler() {
       </form>
     `;
 
-		window.modalSystem.create({
-			title: "Login",
-			content: loginForm,
-			actions: [
-				{ label: "Cancelar", variant: "ghost", onClick: () => {} },
-				{
-					label: "Entrar",
-					variant: "primary",
-					onClick: () => {
-						const form = document.getElementById("loginForm");
-						const validator = new FormValidator(form);
-						if (validator.validateAll()) {
-							window.modalSystem.success({
-								title: "Login realizado!",
-								content: '<p class="modal__text">Bem-vindo de volta!</p>',
-								actions: [
-									{ label: "OK", variant: "primary", onClick: () => {} },
-								],
-							});
-						}
-					},
+	window.modalSystem.create({
+		title: "Login",
+		content: loginForm,
+		actions: [
+			{ label: "Cadastrar",
+				variant: "outline",
+				onClick: () => registerHandler()
+			},
+			{ label: "Cancelar", variant: "ghost", onClick: () => {} },
+			{
+				label: "Entrar",
+				variant: "primary",
+				onClick: () => {
+					const form = document.getElementById("loginForm");
+					const validator = new FormValidator(form);
+					if (validator.validateAll()) {
+						window.modalSystem.success({
+							title: "Login realizado!",
+							content: '<p class="modal__text">Bem-vindo de volta!</p>',
+							actions: [
+								{ label: "OK", variant: "primary", onClick: () => {} },
+							],
+						});
+					}
 				},
-			],
-		});
-
-		setTimeout(() => {
-			const form = document.getElementById("loginForm");
-			if (form) new FormValidator(form);
-		}, 100);
+			},
+		],
 	});
+
+	setTimeout(() => {
+		const form = document.getElementById("loginForm");
+		if (form) new FormValidator(form);
+	}, 100);
+}
+
+function registerHandler() {
+	const registerForm = `
+	  <form class="form" id="registerForm">
+		<div class="form__group">
+		  <label class="form__label form__label--required" for="name">Nome completo</label>
+		  <input type="text" id="name" name="name" class="form__input" placeholder="Nome e sobrenome" required>
+		</div>
+		<div class="form__group">
+		  <label class="form__label form__label--required" for="email">E-mail</label>
+		  <input type="email" id="email" name="email" class="form__input" placeholder="seu@email.com" required>
+		</div>
+		<div class="form__group">
+		  <label class="form__label form__label--required" for="emailConfirm">Confirme o e-mail</label>
+		  <input type="email" id="emailConfirm" name="emailConfirm" data-confirm-for="email" class="form__input" placeholder="seu@email.com" required>
+		</div>
+		<div class="form__group">
+		  <label class="form__label form__label--required" for="password">Senha</label>
+		  <input type="password" id="password" name="password" class="form__input" placeholder="••••••••" required minlength="6">
+		</div>
+		<div class="form__group">
+		  <label class="form__label form__label--required" for="passwordConfirm">Confirme a senha</label>
+		  <input type="password" id="passwordConfirm" name="passwordConfirm" data-confirm-for="password" class="form__input" placeholder="••••••••" required minlength="6">
+		</div>
+		<div class="form__group">
+		  <label class="form__label" for="phone">Telefone</label>
+		  <input type="text" id="phone" name="phone" class="form__input" placeholder="(99)99999-9999" maxlength="14">
+		</div>
+		<div class="form__group">
+		  <div class="form__checkbox">
+		  	<input type="checkbox" id="agreement" name="agreement" value="agree">
+		  	<label class="form__checkbox-label" for="agreement">Aceito os termos de uso do site</label>
+		  </div>
+		</div>
+	  </form>
+	`;
+
+	window.modalSystem.create({
+		title: "Novo Cadastro",
+		content: registerForm,
+		actions: [
+			{ 
+				label: "Cancelar",
+				variant: "ghost",
+				onClick: () => loginHandler(),
+			},
+			{
+				label: "Cadastrar",
+				variant: "primary",
+				onClick: () => {
+					const form = document.getElementById("registerForm");
+					const validator = new FormValidator(form);
+					if (validator.validateAll()) {
+						window.modalSystem.success({
+							title: "Cadastro realizado!",
+							content: '<p class="modal__text">Novo cadastro realizado!</p>',
+							actions: [
+								{ label: "OK", variant: "primary", onClick: () => {} },
+							],
+						});
+					}
+				},
+			},
+		],
+	});
+
+	setTimeout(() => {
+		const form = document.getElementById("registerForm");
+		if (form) new FormValidator(form);
+	}, 100);
 }
