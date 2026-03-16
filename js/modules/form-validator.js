@@ -26,6 +26,9 @@ class FormValidator {
 				const target = document.getElementById(input.dataset.confirmFor);
 				this.#needsConfirmForRevalidation[target.id] = input.id;
 			}
+			if (input.hasAttribute("data-is-phone")) {
+				input.addEventListener("input", (event) => this.maskPhone(event));
+			}
 		});
 	}
 
@@ -70,6 +73,12 @@ class FormValidator {
 			} else {
 				this.clearFieldError(target);
 			}
+		} else if (
+			field.hasAttribute("data-is-phone") &&
+			value &&
+			!/^\([0-9]{2}\)[0-9]{4,5}-[0-9]{4}$/.test(value)
+		) {
+			error = "Telefone inválido";
 		}
 
 		if (error) {
@@ -135,5 +144,33 @@ class FormValidator {
 				],
 			});
 		}
+	}
+
+	maskPhone(inputEvent) {
+		const target = inputEvent.target;
+		const newDataValue = target.value.substring(0, 14).replace(/[^0-9]/g, "");
+		let newValue = "";
+		switch(newDataValue.length) {
+			case 11:
+				newValue = `(${newDataValue.substring(0, 2)})${newDataValue.substring(2, 7)}-${newDataValue.substring(7, 11)}`;
+				break;
+			case 10:
+			case 9:
+			case 8:
+			case 7:
+				newValue = `-${newDataValue.substring(6, 10) + newValue}`;
+			case 6:
+			case 5:
+			case 4:
+			case 3:
+				newValue = `)${newDataValue.substring(2, 6) + newValue}`;
+			case 2:
+			case 1:
+				newValue = `(${newDataValue.substring(0, 2) + newValue}`;
+				break;
+			default:
+				//Do nothing
+		}
+		target.value = newValue;
 	}
 }

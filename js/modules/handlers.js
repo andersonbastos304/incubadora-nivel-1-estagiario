@@ -154,7 +154,7 @@ function registerHandler() {
 		</div>
 		<div class="form__group">
 		  <label class="form__label" for="phone">Telefone</label>
-		  <input type="text" id="phone" name="phone" class="form__input" placeholder="(99)99999-9999" maxlength="14">
+		  <input type="text" id="phone" name="phone" class="form__input" data-is-phone="true" placeholder="(99)99999-9999" maxlength="14">
 		</div>
 		<div class="form__group">
 		  <div class="form__checkbox">
