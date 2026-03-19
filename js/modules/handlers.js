@@ -117,6 +117,9 @@ function loginHandler() {
 								{ label: "OK", variant: "primary", onClick: () => {} },
 							],
 						});
+					} else {
+						form.querySelector(".form__input--error")?.focus();
+						throw new Error("Invalid form data! User must correct the fields before sending again!");
 					}
 				},
 			},
@@ -131,7 +134,7 @@ function loginHandler() {
 
 function registerHandler() {
 	const registerForm = `
-	  <form class="form" id="registerForm">
+	  <form class="form" id="registerForm" method="post">
 		<div class="form__group">
 		  <label class="form__label form__label--required" for="name">Nome completo</label>
 		  <input type="text" id="name" name="name" class="form__input" placeholder="Nome e sobrenome" required>
@@ -168,6 +171,7 @@ function registerHandler() {
 	window.modalSystem.create({
 		title: "Novo Cadastro",
 		content: registerForm,
+		size: "lg",
 		actions: [
 			{ 
 				label: "Cancelar",
@@ -188,6 +192,9 @@ function registerHandler() {
 								{ label: "OK", variant: "primary", onClick: () => {} },
 							],
 						});
+					} else {
+						form.querySelector(".form__input--error")?.focus();
+						throw new Error("Invalid form data! User must correct the fields before sending again!");
 					}
 				},
 			},
