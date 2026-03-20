@@ -99,7 +99,7 @@ function loginHandler() {
 		content: loginForm,
 		actions: [
 			{ label: "Cadastrar",
-				variant: "outline",
+				variant: "ghost",
 				onClick: () => registerHandler()
 			},
 			{ label: "Cancelar", variant: "ghost", onClick: () => {} },

@@ -102,30 +102,6 @@
 	font-size: 0.875rem;
 }
 
-.footer__newsletter-form {
-	font-size: 0.875rem;
-	line-height: 1.75;
-}
-
-.footer__newsletter-btn {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	gap: 0.5rem;
-	padding: 0.15rem 0.5rem;
-	font-weight: 500;
-	border-radius: var(--radius);
-	transition: all 0.2s;
-	border: 2px solid transparent;
-	background: var(--primary);
-	color: white;
-}
-
-.footer__newsletter-btn:hover {
-	background: var(--primary-dark);
-	box-shadow: var(--shadow-lg);
-}
-
 .footer__payment-methods {
 	 width: 20%;
 	 display: flex;

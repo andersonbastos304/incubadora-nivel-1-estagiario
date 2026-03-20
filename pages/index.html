@@ -541,22 +541,24 @@
 						<h4 class="footer__column-title">Newsletter</h4>
 						<p class="footer__about">Receba ofertas exclusivas no seu e-mail</p>
 						<form
-							class="footer__newsletter-form"
+							class=""
 							data-validate
 							id="newsletterForm">
-							<input
-								type="email"
-								name="email"
-								class="footer__newsletter-input"
-								placeholder="Seu e-mail"
-								required />
+							<div class="form__group">
+								<input
+									type="email"
+									name="email"
+									class="form__input"
+									placeholder="Seu e-mail"
+									required />
+							</div>
 							<div class="form__checkbox">
 								<input type="checkbox" id="agreement" name="agreement" value="agree">
 								<label for="agreement">Aceito os termos de privacidade</label>
 							</div>
 							<button
 								type="submit"
-								class="footer__newsletter-btn">
+								class="btn btn-secondary">
 								Inscrever
 							</button>
 						</form>
