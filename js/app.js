@@ -27,7 +27,10 @@ function init() {
 
 	// Auto-inicializa formulários com atributo data-validate
 	document.querySelectorAll("form[data-validate]").forEach((form) => {
-		new FormValidator(form);
+		const formValidator = new FormValidator(form);
+		if(form.id === "newsletterForm") {
+			formValidator.onSubmit = newsletterHandler;
+		}
 	});
 }
 

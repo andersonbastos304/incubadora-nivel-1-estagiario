@@ -206,3 +206,22 @@ function registerHandler() {
 		if (form) new FormValidator(form);
 	}, 100);
 }
+
+function newsletterHandler(data) {
+	const registerForm = `
+	  <p class="modal__text">Novo cadastro para newsletter realizado!</p>
+	`;
+
+	window.modalSystem.create({
+		title: "Newsletter",
+		content: registerForm,
+		size: "md",
+		actions: [
+			{ 
+				label: "Ok",
+				variant: "primary",
+				onClick: () => {},
+			},
+		],
+	});
+}
