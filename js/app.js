@@ -5,7 +5,9 @@
 /**
  * Inicializa toda a aplicação
  */
-function init() {
+async function init() {
+	let Modal = await import("./modules/Modal.mjs").then((data) => {return data["default"]});
+
 	console.log("🚀 E-commerce iniciado");
 
 	// Sistemas globais
