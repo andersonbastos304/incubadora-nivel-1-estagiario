@@ -1,0 +1,32 @@
+{
+  "name": "incubadora-nivel-1-estagiario",
+  "version": "1.0.0",
+  "description": "E-commerce de tecnologia construído com **HTML5, CSS3 e JavaScript puro (Vanilla JS)**, sem frameworks ou dependências externas.",
+  "keywords": [
+    "javascript",
+    "css",
+    "html"
+  ],
+  "homepage": "https://github.com/andersonbastos304/incubadora-nivel-1-estagiario#readme",
+  "bugs": {
+    "url": "https://github.com/andersonbastos304/incubadora-nivel-1-estagiario/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andersonbastos304/incubadora-nivel-1-estagiario.git"
+  },
+  "license": "MIT",
+  "author": "Anderson Bastos Bandeira",
+  "type": "commonjs",
+  "main": "js/app.js",
+  "scripts": {
+    "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" npx jest"
+  },
+  "devDependencies": {
+    "jest": "^30.4.2",
+    "jest-environment-jsdom": "^30.4.1"
+  },
+  "allowScripts": {
+    "unrs-resolver@1.12.2": true
+  }
+}

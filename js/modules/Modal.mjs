@@ -196,6 +196,9 @@ function build_backdrop(
 ) {
     const return_element = document.createElement("div");
     return_element.classList.add(backdrop_class, active_backdrop_class);
+    setTimeout(() => {
+        return_element.classList.add(active_backdrop_class);
+    }, _timeout_create);
     return_element.dataset.modalId = modal_id;
     return_element.addEventListener(
         "click",
@@ -422,7 +425,7 @@ function build_footer_button(
     const return_element = document.createElement("button");
     return_element.classList.add(footer_button_class, footer_button_variant_class_prefix + variant);
     return_element.dataset.action = label;
-    return_element.innerText = label;
+    return_element.innerHTML = label;
 
     if(on_click) {
         return_element.addEventListener(
