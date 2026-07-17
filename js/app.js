@@ -1,12 +1,16 @@
 ﻿// ========================================
 // APP.JS - Aplicação Principal (Simplificado)
 // ========================================
+let Modal;
+let FormValidator;
 
 /**
  * Inicializa toda a aplicação
  */
 async function init() {
-	let Modal = await import("./modules/Modal.mjs").then((data) => {return data["default"]});
+	Modal = await import("./modules/Modal.mjs").then((data) => {return data["default"]});
+	Modal();
+	FormValidator = await import("./modules/Form_Validator.mjs").then((data) => {return data["default"]});
 
 	console.log("🚀 E-commerce iniciado");
 
