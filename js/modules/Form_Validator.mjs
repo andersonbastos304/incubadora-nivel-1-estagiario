@@ -1,13 +1,14 @@
-import Modal from "./Modal.mjs";
-
 /**
  * @param {HTMLElement|string} form 
  * @param {Object} [arguments]
+ * @param {boolean} [arguments.force_init]
+ * @param {(data: Object.<string, string>) => void} [arguments.submit_function]
  */
 function Form_Validator(
     form,
     {
         force_init = true,
+        submit_function = default_submit_function.bind(this),
     } = {}
 ) {
     if(typeof form === "string") {
@@ -18,6 +19,8 @@ function Form_Validator(
     } else {
         this.root_form = form;
     }
+
+    this.submit_function = submit_function;
 
     if(force_init) {
         this.init();
@@ -37,15 +40,14 @@ Form_Validator.prototype.init = function(
         }
     );
 
-    this.root_form.querySelectorAll(
-            fields_query_selector).forEach((input) => {
+    this.root_form.querySelectorAll(fields_query_selector).forEach((input) => {
             input.addEventListener(
                 "blur",
-                () => this.validateField(input)
+                () => {this.validateField(input);}
             );
             input.addEventListener(
                 "input",
-                () => this.clearFieldError(input)
+                () => {this.clearFieldError(input);}
             );
         }
     );
@@ -179,14 +181,6 @@ Form_Validator.prototype.handleSubmit = async function(
         validate_before_submit = true,
         handle_error_message = true,
         fields_query_selector = "input, textarea, select",
-
-        target_modal = default_create_modal(),
-        form_data = (
-            () => {
-                return this.getData();
-            }
-        )(),
-        submit_function = default_submit_handler.bind(this, form_data, target_modal),
     } = {}
 ) {
     if(validate_before_submit) {
@@ -201,7 +195,7 @@ Form_Validator.prototype.handleSubmit = async function(
             return;
         }
     }
-    submit_function();
+    this.submit_function(this.getData());
 }
 
 function validate_required_field(
@@ -321,7 +315,7 @@ function build_error_svg_element() {
     return return_element;
 }
 
-function default_submit_handler(data, target_modal) {
+function default_submit_function(data, target_modal = default_create_modal()) {
     if(target_modal && typeof target_modal.success === "function") {
         target_modal.success(
             {
@@ -333,7 +327,7 @@ function default_submit_handler(data, target_modal) {
             }
         );
     } else {
-        console.log(`Data handled: ${form_data}`);
+        console.log(`Data handled: ${data}`);
     }
 }
 

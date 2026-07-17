@@ -107,3 +107,5 @@ class FormValidator {
 		}
 	}
 }
+
+module.exports = FormValidator;
