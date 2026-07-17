@@ -49,14 +49,16 @@ describe(
 
         function submit_form(validation_definition) {
             document.test_data = {};
+            const mock_submit_function = jest.fn();
             const FormValidator = validation_definition;
-            const validator = new FormValidator(form_element);
-            validator.onSubmit = jest.fn((data) => {console.log(data)});     //This is needed for the sake of the old validator implementation
+            const validator = new FormValidator(form_element, {submit_function: mock_submit_function});
+            validator.onSubmit = mock_submit_function;     //This is needed for the sake of the old validator implementation
             const fields = form_element.querySelectorAll("input");
             fields[0].setAttribute("value", "a@b.c");
             fields[1].setAttribute("value", "123456");
             fields[2].click();
             document.test_data.after_submit = document.body.innerHTML.replaceAll(/\s/g, "");
+            document.test_data.submit_mock_calls = validator.onSubmit.mock.calls.length;
             return document.test_data;
         }
 
