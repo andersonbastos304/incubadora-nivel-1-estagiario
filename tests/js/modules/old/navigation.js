@@ -73,3 +73,5 @@ class Navigation {
 		});
 	}
 }
+
+module.exports = Navigation;

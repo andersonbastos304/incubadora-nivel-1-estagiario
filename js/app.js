@@ -3,6 +3,7 @@
 // ========================================
 let Modal;
 let FormValidator;
+let Navigation;
 
 /**
  * Inicializa toda a aplicação
@@ -11,6 +12,7 @@ async function init() {
 	Modal = await import("./modules/Modal.mjs").then((data) => {return data["default"]});
 	Modal();
 	FormValidator = await import("./modules/Form_Validator.mjs").then((data) => {return data["default"]});
+	Navigation = await import("./modules/Navigation.mjs").then((data) => {return data["default"]});
 
 	console.log("🚀 E-commerce iniciado");
 
